@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useCounterStore } from '@/stores/counter'
 import { query } from '@/api/login'
@@ -12,9 +12,7 @@ const store = useCounterStore()
 const type = ref(0)
 
 /* 方法区 */
-watch(account, (oldValue, newValue) => {
-  console.log(newValue)
-})
+
 const login = async () => {
   if (account.value === '' || passWord.value === '') {
     alert('用户名或账号不能为空')

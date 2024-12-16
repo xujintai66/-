@@ -1,26 +1,29 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useCounterStore } from '@/stores/counter'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { pass } from '@/api/pass'
 
 /* 数据区 */
 const store = useCounterStore()
 let returnData = ref({})
 const route = useRoute()
+const router = useRouter()
 const reason = ref('')
 
 /* 方法区 */
 
 const Pass = async () => {
-  //const aaa = await pass(returnData.value.stuId, 2, reason.value)
-  //store.returnData.splice(route.query.id, 1)
-  //console.log(aaa)
+  const aaa = await pass(returnData.value.stuId, 2, reason.value)
+  store.returnData.splice(route.query.id, 1)
+  router.push('/teacher')
+  console.log(aaa)
   console.log(store.returnData)
 }
 
 const unPass = async () => {
   const aaa = await pass(returnData.value.stuId, 1, reason.value)
+  router.push('/teacher')
   console.log(aaa)
 }
 

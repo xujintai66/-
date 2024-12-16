@@ -51,21 +51,26 @@ const submitForm = async () => {
   formDataToSend.append('teacher', formData.value.teacher)
   formDataToSend.append('project', formData.value.project)
   formDataToSend.append('result', formData.value.result)
-  console.log(formDataToSend)
   const { data } = await submit(formDataToSend)
   console.log(data)
+  await check(stuId.value)
+  if (numOfCheck.value === 0) {
+    checkText.value = '未批改'
+  } else if (numOfCheck.value === 1) {
+    checkText.value = '未通过'
+  } else {
+    checkText.value = '已通过'
+  }
 }
 
 const limit = () => {
-  console.log(startDate.value.value)
-
   if (startDate.value.value) {
     // 计算最大结束日期（开始日期 + 1年 - 1天）
     const maxEndDate = new Date(startDate.value.value)
     maxEndDate.setFullYear(maxEndDate.getFullYear() + 1)
     maxEndDate.setDate(maxEndDate.getDate() - 1)
-    if (!endDate.value.value) {
-      endDate.value.value = startDate.value.value
+    if (!endDate.value.value || endDate.value.value < startDate.value.value) {
+      formData.value.endTime = startDate.value.value
       endDate.value.min = startDate.value.value
       endDate.value.max = maxEndDate.toISOString().split('T')[0]
     }
@@ -109,15 +114,13 @@ const changeShow = (a) => {
 }
 
 onMounted(async () => {
-  const startDateInput = document.getElementById('startDate')
-  const endDateInput = document.getElementById('endDate')
   // 获取当前日期并格式化为 yyyy-MM-dd 格式
   const currentDate = new Date()
   const formattedDate = currentDate.toISOString().split('T')[0]
   // 设置开始日期输入框的默认值
-  startDateInput.value = formattedDate
+  formData.value.startTime = formattedDate
   // 设置结束日期输入框的默认值
-  endDateInput.value = formattedDate
+  formData.value.endTime = formattedDate
 
   /* 获取url中的参数然后 */
   stuId.value = route.query.id

@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { Return } from '@/api/return'
-import { deleteInfo } from '@/api/delete'
+//import { deleteInfo } from '@/api/delete'
 import { useCounterStore } from '@/stores/counter'
 import { useRouter } from 'vue-router'
 import { ReturnIsCheck } from '@/api/returnIscheck'
@@ -26,10 +26,10 @@ const ReturnData = async () => {
   store.returnData = data
 }
 
-const Delete = async (stuId) => {
+/* const Delete = async (stuId) => {
   const { data } = await deleteInfo(stuId)
   console.log(data)
-}
+} */
 
 const GoToInfo = (id) => {
   router.push({
@@ -60,7 +60,6 @@ onMounted(() => {
     </div>
     <div v-if="!store.returnData[0]">目前没有需批改的表单</div>
   </div>
-  <button @click="Delete(returnData[0].stuId)">1111s</button>
 </template>
 
 <style scoped>
