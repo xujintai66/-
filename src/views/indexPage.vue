@@ -52,7 +52,15 @@ const submitForm = async () => {
   formDataToSend.append('project', formData.value.project)
   formDataToSend.append('result', formData.value.result)
   const { data } = await submit(formDataToSend)
-  console.log(data)
+  if (data.code === 200) {
+    alert('提交成功')
+    isShow.value = false
+    for (const key in formData.value) {
+      formData.value[key] = ''
+    }
+  } else {
+    alert('提交失败')
+  }
   await check(stuId.value)
   if (numOfCheck.value === 0) {
     checkText.value = '未批改'
@@ -251,9 +259,14 @@ onMounted(async () => {
   </div>
   <div class="submitted" v-else>
     <div>{{ stuId }}</div>
-    <div>{{ numOfCheck }}</div>
     <div>{{ checkText }}</div>
     <div>{{ info.name }}</div>
+    <div>{{ info.laboratory }}</div>
+    <div>{{ info.phone }}</div>
+    <div>{{ info.project }}</div>
+    <div>{{ info.result }}</div>
+    <div>{{ info.startTime }}</div>
+    <div>{{ info.endTime }}</div>
     <div>{{ reason }}</div>
   </div>
 </template>

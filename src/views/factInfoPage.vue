@@ -14,17 +14,25 @@ const reason = ref('')
 /* 方法区 */
 
 const Pass = async () => {
-  const aaa = await pass(returnData.value.stuId, 2, reason.value)
-  store.returnData.splice(route.query.id, 1)
+  const { data } = await pass(returnData.value.stuId, 2, reason.value)
+  if (data.code === 200) {
+    store.returnData.splice(route.query.id, 1)
+    alert('提交成功')
+  } else {
+    alert('提交失败')
+  }
   router.push('/teacher')
-  console.log(aaa)
-  console.log(store.returnData)
 }
 
 const unPass = async () => {
-  const aaa = await pass(returnData.value.stuId, 1, reason.value)
+  const { data } = await pass(returnData.value.stuId, 1, reason.value)
+  if (data.code === 200) {
+    store.returnData.splice(route.query.id, 1)
+    alert('提交成功')
+  } else {
+    alert('提交失败')
+  }
   router.push('/teacher')
-  console.log(aaa)
 }
 
 onMounted(() => {
